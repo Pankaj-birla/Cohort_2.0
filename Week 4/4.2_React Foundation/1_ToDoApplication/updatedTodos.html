@@ -1,0 +1,51 @@
+<html>
+    <body>
+        <input id="title" type = "text" placeholder="title">  </br></br>
+        <input id="description" type = "text" placeholder="description"> </br> </br>
+
+        <div id="todos"></div>
+        <script>
+            let globalId = 1;
+
+            function createChild(title,description,id){
+                const parent = document.createElement("div");
+                const firstChildDiv = document.createElement("div");
+                firstChildDiv.innerHTML = title;
+                
+                const secondChildDiv =  document.createElement("div");
+                secondChildDiv.innerHTML = description;
+                
+                const thirdChildDiv = document.createElement("button")
+                thirdChildDiv.innerHTML = "Mark as done"; 
+                thirdChildDiv.setAttribute("onclick",`markAsDone(${id})`)
+    
+                parent.appendChild(firstChildDiv);
+                parent.appendChild(secondChildDiv);
+                parent.appendChild(thirdChildDiv);
+                parent.setAttribute("id",id);
+                return parent;
+    
+            }
+            function updatedTodosFromDom(state){
+                const parent = document.getElementById("todos");
+                parent.innerHTML = "";
+                for(let i=0; i<state.length; i++){
+                    const child = createChild(state[i].title, state[i].description, state[i].id);
+                    parent.appendChild(child);
+                }
+            }
+
+            <!-- here we get the updated data from the backend -->
+            updatedTodosFromDom([{
+                title : "go to gym",
+                description : "From 5-7",
+                id : 1   
+            },
+            {
+                title : "go to park",
+                description : "From 8-9",
+                id : 1   
+            }])
+        </script>
+    </body>
+</html>

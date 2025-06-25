@@ -1,0 +1,25 @@
+<html>
+    <script>
+        calculateInterest  = async () => {
+            const principal = document.getElementById("principal").value;
+            const rate = document.getElementById("rate").value;
+            const time = document.getElementById("Time").value;
+
+            const response = await fetch("http://localhost:3000/interest?principal=" + principal + "&rate=" + rate + "&time=" + time);
+            const finalResult = await response.text();
+            const finalAmt = parseInt(principal)+parseInt(finalResult)
+            document.getElementById("interestCalculation").innerHTML = `Interest : ${finalResult} & Final Amt : ${finalAmt}`;
+        }
+    </script>
+    <body>
+
+        <input id= "principal" type="text" placeholder="Enter Principal Amount"><br></br>
+        <input id= "rate" type="text" placeholder="Enter Rate %"><br></br>
+        <input id= "Time" type="text" placeholder="Enter Duration Year"><br></br>
+
+        <button onclick="calculateInterest()">Calculate Interest</button>
+        <br></br>
+        <div id="interestCalculation"></div> 
+
+    </body>
+</html>

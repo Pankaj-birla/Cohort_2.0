@@ -1,0 +1,30 @@
+<html>
+    <script>
+        //once
+        let timeout;
+        function debouncedCalculateSum() {
+            // How do you cancel a timeout? => using clearTimeout() 
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                calculateSum();
+            }, 1000);
+        }
+
+        async function calculateSum() {
+            //debouncing , throtling
+            const a = document.getElementById("firstNumber").value;
+            const b = document.getElementById("secondNumber").value;
+
+            const response = await fetch("http://localhost:3000/sum?a=" + a + "&b=" + b)
+            const finalResult = await response.text();
+            document.getElementById("finalSum").innerHTML = finalResult;
+        }
+    </script>
+<body>
+    <input onInput="debouncedCalculateSum()" id="firstNumber" type="text" placeholder="First Number"><br></br>
+    <input onInput="debouncedCalculateSum()" id="secondNumber" type="text" placeholder="Second Number"><br></br>
+
+    <div id="finalSum"></div>
+</body>
+
+</html>
